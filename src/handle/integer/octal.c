@@ -22,36 +22,36 @@ void	pre_padding_octal(t_pf *arg, size_t nbr_len, int *result)
 	if (!(arg->flags & FLAG_MINUS))
 	{
 		if (arg->width > arg->precision && arg->precision > nbr_len)
-			push_chars(arg_buff, ' ', arg->width - arg->precision);
+			push_chars(' ', arg->width - arg->precision, result);
 		if (arg->width > nbr_len && nbr_len > arg->precision &&
 				(arg->flags & FLAG_GOT_PRECISION))
-			push_chars(arg_buff, char_to_fill, arg->width - nbr_len);
+			push_chars(char_to_fill, arg->width - nbr_len, result);
 		if (arg->width > arg->precision && arg->precision == nbr_len)
-			push_chars(arg_buff, char_to_fill, arg->width - arg->precision);
+			push_chars(char_to_fill, arg->width - arg->precision, result);
 		if (arg->width > nbr_len && !(arg->flags & FLAG_GOT_PRECISION))
-			push_chars(arg_buff, char_to_fill, arg->width - nbr_len);
+			push_chars(char_to_fill, arg->width - nbr_len, result);
 	}
 	if (arg->precision > nbr_len)
-		push_chars(arg_buff, '0', arg->precision - nbr_len);
+		push_chars('0', arg->precision - nbr_len, result);
 }
 
 void	fill_octal(t_pf *arg, char *nbr_str, size_t nbr_len, int *result)
 {
 	if (arg->flags & FLAG_HASH)
 	{
-		push_chars(arg_buff, '0', 1);
+		push_chars('0', 1, result);
 		nbr_len--;
 	}
 	while (nbr_len--)
-		(arg_buff->buff)[arg_buff->index++] = *nbr_str++;
+		push_chars(*nbr_str++, 1, result);
 }
 
 void	post_padding_octal(t_pf *arg, size_t nbr_len, int *result)
 {
 	if (arg->width > nbr_len && nbr_len > arg->precision)
-		push_chars(arg_buff, ' ', arg->width - nbr_len);
+		push_chars(' ', arg->width - nbr_len, result);
 	if (arg->width > arg->precision && arg->precision >= nbr_len)
-		push_chars(arg_buff, ' ', arg->width - arg->precision);
+		push_chars(' ', arg->width - arg->precision, result);
 }
 
 void	octal(t_pf *arg, char *nbr_str, size_t nbr_len, int *result)

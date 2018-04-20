@@ -55,7 +55,7 @@ int							parse_width(char **format, va_list va, t_pf *arg);
 int							parse_precision(char **format, va_list va, t_pf *arg);
 int							parse_length(char **format, t_pf *arg);
 
-void						handle_argument(va_list va, t_pf *pf, int *result);
+void						handle_argument(va_list va, t_pf *arg, int *result);
 void						handle_number(t_pf *arg, uintmax_t nbr, int *result);
 void						handle_char(t_pf *arg, wchar_t chr, int *result);
 void						handle_string(t_pf *arg, wchar_t *str, int *result);
@@ -67,6 +67,8 @@ void						one_byte(unsigned int chr, int *result);
 void						two_bytes(unsigned int chr, int *result);
 void						three_bytes(unsigned int chr, int *result);
 void						four_bytes(unsigned int chr, int *result);
+
+void						push_chars(char chr, size_t amount, int *result);
 
 void						prepare_string_arg(t_pf *arg);
 size_t						wstr_bytes_to_print(t_pf *arg, wchar_t *str);

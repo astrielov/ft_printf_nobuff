@@ -33,12 +33,12 @@ size_t		wide_char_bytes(wchar_t chr)
 	return (4);
 }
 
-void		one_byte(t_buff *arg_buff, unsigned int chr)
+void		one_byte(unsigned int chr, int *result)
 {
-	(arg_buff->buff)[arg_buff->index++] = chr;
+	push_chars(chr, 1, result);
 }
 
-void		two_bytes(t_buff *arg_buff, unsigned int chr)
+void		two_bytes(unsigned int chr, int *result)
 {
 	int				mask;
 	unsigned char	o1;
@@ -47,11 +47,11 @@ void		two_bytes(t_buff *arg_buff, unsigned int chr)
 	mask = 49280;
 	o1 = ((chr >> 6) << 27) >> 27;
 	o2 = (chr << 26) >> 26;
-	(arg_buff->buff)[arg_buff->index++] = (mask >> 8) | o1;
-	(arg_buff->buff)[arg_buff->index++] = ((mask << 24) >> 24) | o2;
+	push_chars((mask >> 8) | o1, 1, result);
+	push_chars(((mask << 24) >> 24) | o2, 1, result);
 }
 
-void		three_bytes(t_buff *arg_buff, unsigned int chr)
+void		three_bytes(unsigned int chr, int *result)
 {
 	unsigned int	mask;
 	unsigned char	o1;
@@ -62,12 +62,12 @@ void		three_bytes(t_buff *arg_buff, unsigned int chr)
 	o1 = ((chr >> 12) << 28) >> 28;
 	o2 = ((chr >> 6) << 26) >> 26;
 	o3 = (chr << 26) >> 26;
-	(arg_buff->buff)[arg_buff->index++] = (mask >> 16) | o1;
-	(arg_buff->buff)[arg_buff->index++] = ((mask << 16) >> 24) | o2;
-	(arg_buff->buff)[arg_buff->index++] = ((mask << 24) >> 24) | o3;
+	push_chars((mask >> 16) | o1, 1, result);
+	push_chars(((mask << 16) >> 24) | o2, 1, result);
+	push_chars(((mask << 24) >> 24) | o3, 1, result);
 }
 
-void		four_bytes(t_buff *arg_buff, unsigned int chr)
+void		four_bytes(unsigned int chr, int *result)
 {
 	unsigned int	mask;
 	unsigned char	o1;
@@ -80,8 +80,8 @@ void		four_bytes(t_buff *arg_buff, unsigned int chr)
 	o2 = ((chr >> 12) << 26) >> 26;
 	o3 = ((chr >> 6) << 26) >> 26;
 	o4 = (chr << 26) >> 26;
-	(arg_buff->buff)[arg_buff->index++] = (mask >> 24) | o1;
-	(arg_buff->buff)[arg_buff->index++] = ((mask << 8) >> 24) | o2;
-	(arg_buff->buff)[arg_buff->index++] = ((mask << 16) >> 24) | o3;
-	(arg_buff->buff)[arg_buff->index++] = ((mask << 24) >> 24) | o4;
+	push_chars((mask >> 24) | o1, 1, result);
+	push_chars(((mask << 8) >> 24) | o2, 1, result);
+	push_chars(((mask << 16) >> 24) | o3, 1, result);
+	push_chars(((mask << 24) >> 24) | o4, 1, result);
 }

@@ -12,49 +12,39 @@
 
 #include "../../includes/ft_printf.h"
 
-void		char_pre_padding(t_pf *arg, t_buff *arg_buff, size_t bytes)
+void		char_pre_padding(t_pf *arg, size_t bytes, int *result)
 {
 	char	char_to_fill;
 
 	char_to_fill = (char)(arg->flags & FLAG_ZERO ? '0' : ' ');
 	while (!(arg->flags & FLAG_MINUS) && (arg->width)-- > bytes)
-	{
-		if (arg_buff->index >= arg_buff->size)
-			buff_realloc(arg_buff);
-		(arg_buff->buff)[arg_buff->index++] = char_to_fill;
-	}
+		push_chars(char_to_fill, 1, result);
 }
 
-void		char_post_padding(t_pf *arg, t_buff *arg_buff, size_t bytes)
+void		char_post_padding(t_pf *arg, size_t bytes, int *result)
 {
 	while ((arg->flags & FLAG_MINUS) && (arg->width)-- > bytes)
-	{
-		if (arg_buff->index >= arg_buff->size)
-			buff_realloc(arg_buff);
-		(arg_buff->buff)[arg_buff->index++] = ' ';
-	}
+		push_chars(' ', 1, result);
 }
 
-void		fill_wide_char(t_buff *arg_buff, unsigned int chr, size_t bytes)
+void		fill_wide_char(unsigned int chr, size_t bytes, int *result)
 {
-	if (arg_buff->index + 4 >= arg_buff->size)
-		buff_realloc(arg_buff);
 	if (bytes == 1)
-		one_byte(arg_buff, chr);
+		one_byte(chr, result);
 	else if (bytes == 2)
-		two_bytes(arg_buff, chr);
+		two_bytes(chr, result);
 	else if (bytes == 3)
-		three_bytes(arg_buff, chr);
+		three_bytes(chr, result);
 	else if (bytes == 4)
-		four_bytes(arg_buff, chr);
+		four_bytes(chr, result);
 }
 
-void		fill_char(t_buff *arg_buff, char chr)
+void		fill_char(char chr, int *result)
 {
-	push_chars(arg_buff, chr, 1);
+	push_chars(chr, 1, result);
 }
 
-void		handle_char(t_pf *arg, t_buff *arg_buff, wchar_t chr)
+void		handle_char(t_pf *arg, wchar_t chr, int *result)
 {
 	size_t	bytes;
 
@@ -62,11 +52,11 @@ void		handle_char(t_pf *arg, t_buff *arg_buff, wchar_t chr)
 		arg->specifier = 'C';
 	bytes = arg->specifier == 'c' ? 1 : wide_char_bytes(chr);
 	if (arg->specifier == 'c' || arg->specifier == 'C')
-		char_pre_padding(arg, arg_buff, bytes);
+		char_pre_padding(arg, bytes, result);
 	if (arg->specifier == 'c')
-		fill_char(arg_buff, (char)chr);
+		fill_char((char)chr, result);
 	else
-		fill_wide_char(arg_buff, (unsigned int)chr, bytes);
+		fill_wide_char((unsigned int)chr, bytes, result);
 	if (arg->specifier == 'c' || arg->specifier == 'C')
-		char_post_padding(arg, arg_buff, bytes);
+		char_post_padding(arg, bytes, result);
 }

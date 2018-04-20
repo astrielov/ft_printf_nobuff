@@ -13,34 +13,34 @@
 #include "../../includes/ft_printf.h"
 #include "../libft/libft.h"
 
-void	print_hash_ptr(t_buff *arg_buff)
+void	print_hash_ptr(int *result)
 {
-	push_chars(arg_buff, '0', 1);
-	push_chars(arg_buff, 'x', 1);
+	push_chars('0', 1, result);
+	push_chars('x', 1, result);
 }
 
-void	pre_padding_ptr(t_pf *arg, t_buff *arg_buff, size_t nbr_len)
+void	pre_padding_ptr(t_pf *arg, size_t nbr_len, int *result)
 {
 	if (arg->width > arg->precision + 2 && arg->width > nbr_len + 2 &&
 			!(arg->flags & FLAG_MINUS) && !(arg->flags & FLAG_ZERO))
 	{
 		if (arg->precision > nbr_len)
-			push_chars(arg_buff, ' ', arg->width - arg->precision - 2);
+			push_chars(' ', arg->width - arg->precision - 2, result);
 		else
-			push_chars(arg_buff, ' ', arg->width - nbr_len - 2);
+			push_chars(' ', arg->width - nbr_len - 2, result);
 	}
 }
 
-void	fill_ptr(t_pf *arg, t_buff *arg_buff, char *nbr_str, size_t nbr_len)
+void	fill_ptr(t_pf *arg, char *nbr_str, size_t nbr_len, int *result)
 {
-	print_hash_ptr(arg_buff);
+	print_hash_ptr(result);
 	if (arg->precision > nbr_len)
-		push_chars(arg_buff, '0', arg->precision - nbr_len);
+		push_chars('0', arg->precision - nbr_len, result);
 	while (nbr_len--)
-		(arg_buff->buff)[arg_buff->index++] = *nbr_str++;
+		push_chars(*nbr_str++, 1, result);
 }
 
-void	post_padding_ptr(t_pf *arg, t_buff *arg_buff, size_t nbr_len)
+void	post_padding_ptr(t_pf *arg, size_t nbr_len, int *result)
 {
 	char	char_to_fill;
 
@@ -51,18 +51,17 @@ void	post_padding_ptr(t_pf *arg, t_buff *arg_buff, size_t nbr_len)
 			(arg->flags & FLAG_MINUS || arg->flags & FLAG_ZERO))
 	{
 		if (arg->precision > nbr_len)
-			push_chars(arg_buff, char_to_fill, arg->width -
-					arg->precision - 2);
+			push_chars(char_to_fill, arg->width -
+					arg->precision - 2, result);
 		else
-			push_chars(arg_buff, char_to_fill, arg->width - nbr_len - 2);
+			push_chars(char_to_fill, arg->width - nbr_len - 2, result);
 	}
 }
 
-void	handle_pointer(t_pf *arg, t_buff *arg_buff, size_t nbr)
+void	handle_pointer(t_pf *arg, size_t nbr, int *result)
 {
 	char	*nbr_str;
 	size_t	nbr_len;
-	size_t	bytes_left;
 
 	arg->base = 16;
 	arg->length = LENGTH_SIZE_T;
@@ -70,14 +69,7 @@ void	handle_pointer(t_pf *arg, t_buff *arg_buff, size_t nbr)
 	nbr_len = ft_strlen(nbr_str);
 	if (nbr == 0 && arg->flags & FLAG_GOT_PRECISION && !arg->precision)
 		nbr_len = 0;
-	bytes_left = arg_buff->size - arg_buff->index;
-	while (bytes_left < nbr_len || bytes_left < arg->width ||
-			bytes_left < arg->precision)
-	{
-		buff_realloc(arg_buff);
-		bytes_left = arg_buff->size - arg_buff->index;
-	}
-	pre_padding_ptr(arg, arg_buff, nbr_len);
-	fill_ptr(arg, arg_buff, nbr_str, nbr_len);
-	post_padding_ptr(arg, arg_buff, nbr_len);
+	pre_padding_ptr(arg, nbr_len, result);
+	fill_ptr(arg, nbr_str, nbr_len, result);
+	post_padding_ptr(arg, nbr_len, result);
 }

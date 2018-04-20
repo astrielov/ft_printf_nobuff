@@ -15,7 +15,7 @@ NAME = libftprintf.a
 PRJDIR = $(PWD)
 
 SRCS =	src/ft_printf.c \
-		src/push_chars.c \
+		src/helpers.c \
 		src/parse/flags.c \
 		src/parse/parse.c \
 		src/parse/width.c \

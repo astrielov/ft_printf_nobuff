@@ -36,14 +36,14 @@ size_t	wstr_bytes_to_print(t_pf *arg, wchar_t *str)
 }
 
 void	fill_wide_str(t_pf *arg, wchar_t *str,
-						size_t str_bytes)
+						size_t str_bytes, int *result)
 {
 	size_t	char_bytes;
 
 	char_bytes = wide_char_bytes(*str);
 	while (str_bytes >= char_bytes)
 	{
-		handle_char(arg, *str++);
+		handle_char(arg, *str++, result);
 		str_bytes -= char_bytes;
 		char_bytes = wide_char_bytes(*str);
 	}
