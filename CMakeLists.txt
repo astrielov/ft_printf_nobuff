@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.9)
-project(ft_printf_new)
+project(ft_printf_nobuff)
 
 set(CMAKE_C_STANDARD 99)
 
@@ -87,7 +87,6 @@ set(FT_PRINTF_NEW
         src/handle/handle.c
         src/handle/number.c
         src/handle/char.c
-        src/helpers/buffer.c
         src/handle/wchar.c
         src/handle/string.c
         src/handle/pointer.c
@@ -96,10 +95,10 @@ set(FT_PRINTF_NEW
         src/handle/integer/octal.c
         src/handle/integer/hexademical.c
         src/handle/integer/decimal.c
-        src/helpers/push_chars.c src/handle/invalid_specifier.c)
+        src/handle/invalid_specifier.c
+        src/helpers.c)
 
-add_library(ft_printf_new
+add_library(ft_printf
         ${FT_PRINTF_NEW}
         ${LIBFT}
-        debug_print_pf.c
         )

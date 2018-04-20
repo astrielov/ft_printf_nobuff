@@ -6,3 +6,9 @@ obj/
 src/\.DS_Store
 
 includes/\.DS_Store
+
+\.idea/
+
+a\.out
+
+libftprintf\.a

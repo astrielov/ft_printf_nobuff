@@ -6,7 +6,7 @@
 #    By: astrielov <astrielov@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/29 20:54:44 by astrielov         #+#    #+#              #
-#    Updated: 2018/04/18 12:43:46 by astrelov         ###   ########.fr        #
+#    Updated: 2018/04/20 17:41:23 by astrelov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = libftprintf.a
 PRJDIR = $(PWD)
 
 SRCS =	src/ft_printf.c \
+		src/push_chars.c \
 		src/parse/flags.c \
 		src/parse/parse.c \
 		src/parse/width.c \
@@ -32,8 +33,6 @@ SRCS =	src/ft_printf.c \
 		src/handle/integer/octal.c \
 		src/handle/integer/decimal.c \
 		src/handle/integer/hexademical.c \
-		src/helpers/buffer.c \
-		src/helpers/push_chars.c \
 		src/libft/ft_atoi.c \
 		src/libft/ft_bzero.c \
 		src/libft/ft_d_bblsort.c \
@@ -124,7 +123,6 @@ obj:
 		@mkdir -p $(OBJDIR)/libft
 		@mkdir -p $(OBJDIR)/parse
 		@mkdir -p $(OBJDIR)/handle/integer
-		@mkdir -p $(OBJDIR)/helpers
 
 $(OBJDIR)%.o: src/%.c
 				@gcc $(CFLAGS) $(HEADERS) -c $< -o $@

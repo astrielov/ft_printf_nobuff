@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_chars.c                                       :+:      :+:    :+:   */
+/*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astrelov <astrelov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/30 13:39:47 by astrelov          #+#    #+#             */
-/*   Updated: 2018/04/18 12:43:46 by astrelov         ###   ########.fr       */
+/*   Created: 2018/04/20 17:39:15 by astrelov          #+#    #+#             */
+/*   Updated: 2018/04/20 17:39:44 by astrelov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_printf.h"
+#include "libft/libft.h"
 
-void	push_chars(t_buff *buff, char c, size_t amount)
+void	push_chars(char chr, size_t amount, int *result)
 {
-	while (buff->index + amount >= buff->size)
-		buff_realloc(buff);
+	*result += amount;
 	while (amount--)
-		buff->buff[buff->index++] = c;
+		ft_putchar(chr);
 }

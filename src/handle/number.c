@@ -36,27 +36,19 @@ void	prepare_number_arg(t_pf *arg)
 	}
 }
 
-void	handle_number(t_pf *arg, t_buff *arg_buff, uintmax_t nbr)
+void	handle_number(t_pf *arg, uintmax_t nbr, int *result)
 {
 	char	*nbr_str;
 	size_t	nbr_len;
-	size_t	bytes_left;
 
 	prepare_number_arg(arg);
 	nbr_str = stringify_nbr(arg, nbr);
 	nbr_len = ft_strlen(nbr_str);
-	bytes_left = arg_buff->size - arg_buff->index;
-	while (bytes_left < nbr_len || bytes_left < arg->width ||
-			bytes_left < arg->precision)
-	{
-		buff_realloc(arg_buff);
-		bytes_left = arg_buff->size - arg_buff->index;
-	}
 	if (arg->base == 8)
-		octal(arg, arg_buff, nbr_str, nbr_len);
+		octal(arg, nbr_str, nbr_len, result);
 	if (arg->base == 10)
-		decimal(arg, arg_buff, nbr_str, nbr_len);
+		decimal(arg, nbr_str, nbr_len, result);
 	if (arg->base == 16)
-		hexademical(arg, arg_buff, nbr_str, nbr_len);
+		hexademical(arg, nbr_str, nbr_len, result);
 	ft_memdel((void **)&nbr_str);
 }
