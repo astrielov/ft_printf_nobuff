@@ -1,0 +1,8 @@
+
+cmake-build-debug/
+
+obj/
+
+src/\.DS_Store
+
+includes/\.DS_Store
