@@ -6,7 +6,7 @@
 /*   By: astrelov <astrelov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 13:06:24 by astrelov          #+#    #+#             */
-/*   Updated: 2018/04/20 16:57:34 by astrelov         ###   ########.fr       */
+/*   Updated: 2018/04/22 14:25:03 by astrelov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,7 @@ void	pre_padding_decimal(t_pf *arg, size_t nbr_len, int *result)
 		print_sign_decimal(arg, result);
 	}
 	if (!(arg->flags & FLAG_MINUS))
-	{
-		if (arg->width > arg->precision && arg->precision > nbr_len)
-			push_chars(' ', arg->width - arg->precision, result);
-		if (arg->width > nbr_len && nbr_len > arg->precision &&
-				(arg->flags & FLAG_GOT_PRECISION))
-			push_chars(char_to_fill, arg->width - nbr_len, result);
-		if (arg->width > arg->precision && arg->precision == nbr_len)
-			push_chars(char_to_fill, arg->width - arg->precision, result);
-		if (arg->width > nbr_len && !(arg->flags & FLAG_GOT_PRECISION))
-			push_chars(char_to_fill, arg->width - nbr_len, result);
-	}
+		decimal_pre_padding_helper(arg, nbr_len, result, char_to_fill);
 	if (char_to_fill == ' ')
 		print_sign_decimal(arg, result);
 	if (arg->precision > nbr_len)

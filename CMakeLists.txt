@@ -95,6 +95,7 @@ set(FT_PRINTF_NEW
         src/handle/integer/octal.c
         src/handle/integer/hexademical.c
         src/handle/integer/decimal.c
+        src/handle/integer/tmp.c
         src/handle/invalid_specifier.c
         src/helpers.c)
 

@@ -6,7 +6,7 @@
 /*   By: astrelov <astrelov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 16:55:40 by astrelov          #+#    #+#             */
-/*   Updated: 2018/04/20 16:01:19 by astrelov         ###   ########.fr       */
+/*   Updated: 2018/04/22 13:39:03 by astrelov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -431,6 +431,7 @@ void	hexademical_tests(int *failed, int *succeed)
 	int_helper(failed, succeed, "%#.3x", 2500);
 	int_helper(failed, succeed, "%#.2x", 2500);
 	int_helper(failed, succeed, "%#x", 0);
+	int_helper(failed, succeed, "%#5x", 0);
 
 	printf("\033[32;1m\t\t\t>>>> HEXADEMICAL FLAG MINUS <<<<\033[0m\n\n\n");
 
@@ -481,6 +482,7 @@ void	hexademical_tests(int *failed, int *succeed)
 	int_helper(failed, succeed, "%-#.3x", 2500);
 	int_helper(failed, succeed, "%-#.2x", 2500);
 	int_helper(failed, succeed, "%-#x", 0);
+	int_helper(failed, succeed, "%-#5x", 0);
 }
 
 void	integer_tests(int *failed, int *succeed)
@@ -495,9 +497,9 @@ void	integer_tests(int *failed, int *succeed)
 	if (a != b)	printf("\033[31;1m>>>> RESULT: ft_pf(%d), pf(%d) <<<<\033[0m\n\n\n", a, b);
 	if (a != b) *failed += 1; else *succeed += 1;
 
-	decimal_signed_tests(failed, succeed);
-	decimal_unsigned_tests(failed, succeed);
-	octal_tests(failed, succeed);
+//	decimal_signed_tests(failed, succeed);
+//	decimal_unsigned_tests(failed, succeed);
+//	octal_tests(failed, succeed);
 	hexademical_tests(failed, succeed);
 }
 
@@ -755,12 +757,12 @@ int 	main()
 		puts("\n\n\n");
 
 	integer_tests(&failed, &succeed);
-	chr_tests(&failed, &succeed);
-	string_tests(&failed, &succeed);
-	wide_char_tests(&failed, &succeed);
-	wide_string_tests(&failed, &succeed);
-	pointer_tests(&failed, &succeed);
-	invalid_specifier_tests(&failed, &succeed);
+//	chr_tests(&failed, &succeed);
+//	string_tests(&failed, &succeed);
+//	wide_char_tests(&failed, &succeed);
+//	wide_string_tests(&failed, &succeed);
+//	pointer_tests(&failed, &succeed);
+//	invalid_specifier_tests(&failed, &succeed);
 
 	printf("\n\n\033[32;1m...........................RETURNED VALUE EQUAL:\t%d\033[0m\n", succeed);
 	printf("\033[31;1m...........................RETURNED VALUE NOT EQUAL:\t%d\033[0m\n\n\n", failed);

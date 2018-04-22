@@ -6,14 +6,12 @@
 /*   By: astrielov <astrielov@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 16:32:38 by astrielov         #+#    #+#             */
-/*   Updated: 2018/04/20 17:31:09 by astrelov         ###   ########.fr       */
+/*   Updated: 2018/04/22 14:25:01 by astrelov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_NEW_FT_PRINTF_H
 # define FT_PRINTF_NEW_FT_PRINTF_H
-
-#include <stdio.h>
 
 # include <inttypes.h>
 # include <stdarg.h>
@@ -52,11 +50,13 @@ unsigned int				parse_atoi(char **format);
 void						parse(char **format, va_list va, t_pf **arg);
 int							parse_flags(char **format, t_pf *arg);
 int							parse_width(char **format, va_list va, t_pf *arg);
-int							parse_precision(char **format, va_list va, t_pf *arg);
+int							parse_precision(char **format, va_list va,
+	t_pf *arg);
 int							parse_length(char **format, t_pf *arg);
 
 void						handle_argument(va_list va, t_pf *arg, int *result);
-void						handle_number(t_pf *arg, uintmax_t nbr, int *result);
+void						handle_number(t_pf *arg, uintmax_t nbr,
+	int *result);
 void						handle_char(t_pf *arg, wchar_t chr, int *result);
 void						handle_string(t_pf *arg, wchar_t *str, int *result);
 void						handle_pointer(t_pf *arg, size_t nbr, int *result);
@@ -72,11 +72,18 @@ void						push_chars(char chr, size_t amount, int *result);
 
 void						prepare_string_arg(t_pf *arg);
 size_t						wstr_bytes_to_print(t_pf *arg, wchar_t *str);
-void						fill_wide_str(t_pf *arg, wchar_t *str, size_t str_bytes, int *result);
+void						fill_wide_str(t_pf *arg, wchar_t *str,
+	size_t str_bytes, int *result);
 
 char						*stringify_nbr(t_pf *arg, uintmax_t nbr);
-void						octal(t_pf *arg, char *nbr_str, size_t nbr_len, int *result);
-void						decimal(t_pf *arg, char *nbr_str, size_t nbr_len, int *result);
-void						hexademical(t_pf *arg, char *nbr_str, size_t nbr_len, int *result);
+void						octal(t_pf *arg, char *nbr_str, size_t nbr_len,
+	int *result);
+void						decimal(t_pf *arg, char *nbr_str, size_t nbr_len,
+	int *result);
+void						decimal_pre_padding_helper(t_pf *arg,
+	size_t nbr_len, int *result, char char_to_fill);
+
+void						hexademical(t_pf *arg, char *nbr_str,
+	size_t nbr_len, int *result);
 
 #endif

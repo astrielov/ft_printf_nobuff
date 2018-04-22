@@ -6,7 +6,7 @@
 #    By: astrielov <astrielov@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/29 20:54:44 by astrielov         #+#    #+#              #
-#    Updated: 2018/04/20 17:41:23 by astrelov         ###   ########.fr        #
+#    Updated: 2018/04/22 13:02:04 by astrelov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS =	src/ft_printf.c \
 		src/handle/integer/integer.c \
 		src/handle/integer/octal.c \
 		src/handle/integer/decimal.c \
+		src/handle/integer/tmp.c \
 		src/handle/integer/hexademical.c \
 		src/libft/ft_atoi.c \
 		src/libft/ft_bzero.c \
