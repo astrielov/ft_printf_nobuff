@@ -6,7 +6,7 @@
 /*   By: astrielov <astrielov@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/29 11:10:42 by astrielov         #+#    #+#             */
-/*   Updated: 2018/04/20 16:52:11 by astrelov         ###   ########.fr       */
+/*   Updated: 2018/04/22 13:02:04 by astrelov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,5 @@ void	handle_pointer(t_pf *arg, size_t nbr, int *result)
 	pre_padding_ptr(arg, nbr_len, result);
 	fill_ptr(arg, nbr_str, nbr_len, result);
 	post_padding_ptr(arg, nbr_len, result);
+	ft_memdel((void **)&nbr_str);
 }

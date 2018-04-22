@@ -12,3 +12,5 @@ includes/\.DS_Store
 a\.out
 
 libftprintf\.a
+
+\.DS_Store
