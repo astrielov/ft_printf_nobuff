@@ -6,7 +6,7 @@
 /*   By: astrielov <astrielov@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 17:54:36 by astrielov         #+#    #+#             */
-/*   Updated: 2018/04/22 13:02:04 by astrelov         ###   ########.fr       */
+/*   Updated: 2018/04/24 17:04:03 by astrelov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		handle_char(t_pf *arg, wchar_t chr, int *result)
 	bytes = arg->specifier == 'c' ? 1 : wide_char_bytes(chr);
 	if (arg->specifier == 'c' || arg->specifier == 'C')
 		char_pre_padding(arg, bytes, result);
-	if (arg->specifier == 'c' && MB_CUR_MAX != 4)
+	if (arg->specifier == 'c' || MB_CUR_MAX != 4)
 		fill_char((char)chr, result);
 	else
 		fill_wide_char((unsigned int)chr, bytes, result);
