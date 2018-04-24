@@ -53,7 +53,7 @@ void		handle_char(t_pf *arg, wchar_t chr, int *result)
 	bytes = arg->specifier == 'c' ? 1 : wide_char_bytes(chr);
 	if (arg->specifier == 'c' || arg->specifier == 'C')
 		char_pre_padding(arg, bytes, result);
-	if (arg->specifier == 'c')
+	if (arg->specifier == 'c' && MB_CUR_MAX != 4)
 		fill_char((char)chr, result);
 	else
 		fill_wide_char((unsigned int)chr, bytes, result);
